@@ -1,5 +1,8 @@
+import time
+import random
 
-SURVIVORS=100
+
+SURVIVORS=10
 LEVELS=9
 
 
@@ -21,19 +24,35 @@ class Elevator:
         self.level = level
         self.passengers = passengers
 
-    def find_destination(self, current_level, pull):
+    def add_passengers(n):
+        return self.passengers.append(n)
+
+    def find_nearest_call(self, current_level, pull):
         """
         находит ближайший этаж среди нескольких из пулла вызовов
         """
         distances = []
         for level in pull:
             distances.append(abs(level - current_level))
-        print(distances)
+        #print(distances)
         minimal_distance = min(distances)
         index_in_pull = distances.index(minimal_distance)
         destination = pull[index_in_pull]
         return destination
-    pass
+
+class Survivor:
+    """
+     Чел, знает:
+     свой Э(таж), куда едет тоже знает
+    """
+    def __init__(self):
+        self.floor = random.randrange(LEVELS)
+        self.destination = random.randrange(LEVELS)
+        self.waiting = True
+
+    def __repr__(self):
+        return f'Survivor on {self.floor!r}, goes to {self.destination!r}'
+    
 
 class Simulator:
     """
@@ -47,15 +66,27 @@ class Simulator:
     Имеет методы инит ...
     инит: случайное колво этажей с случайным колвом Ч
     """
-    def __init__():
-        pass
-
-    pass
+    def __init__(self, elevator, survivors):
+        self.elevator = elevator
+        self.survivors = [] #instances of Survivor
+        self.pull_of_requests = []
+    
+    def run(self):
+        
+        for survivor in range(SURVIVORS):
+            survivor = Survivor()
+            time.sleep(random.randrange(1, 3))
+            self.pull_of_requests.append(survivor.floor)
+            #TODO здесь вот лифт везет куда надо
+            call = self.elevator.find_nearest_call(self.elevator.level, self.pull_of_requests)
+            print(survivor.floor, survivor.destination, self.pull_of_requests, call)
 
 if __name__=='__main__':
 
-    pull=[2, 3, 5, 15]
-    elev1 = Elevator(3, 1)
-    print(elev1.find_destination(elev1.level, pull))
+    el = Elevator(9, 0)
+    sim = Simulator(el, SURVIVORS)
+    sim.run()
+
+    
 
     
