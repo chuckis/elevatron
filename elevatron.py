@@ -49,7 +49,9 @@ class Survivor:
         self.floor = random.randrange(LEVELS)
         self.destination = random.randrange(LEVELS)
         self.waiting = True
-
+    def call_elevator(self, floor):
+        print(f"I wanna go to {floor} floor")
+        
     def __repr__(self):
         return f'Survivor on {self.floor!r}, goes to {self.destination!r}'
     
@@ -77,6 +79,8 @@ class Simulator:
             survivor = Survivor()
             time.sleep(random.randrange(1, 3))
             self.pull_of_requests.append(survivor.floor)
+            survivor.call_elevator(survivor.destination)
+            
             #TODO здесь вот лифт везет куда надо
             call = self.elevator.find_nearest_call(self.elevator.level, self.pull_of_requests)
             print(survivor.floor, survivor.destination, self.pull_of_requests, call)
