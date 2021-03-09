@@ -8,18 +8,18 @@ class Survivor:
     """
     """
     def __init__(self):
-        self.curr_floor = random.randrange(LEVELS)
+        self.origin_floor = random.randrange(LEVELS)
         self.waiting = True
+        self.current_floor = None
     
-    def call_elevator(self, requests_queue):
-        requests_queue.append(self.curr_floor)
-        print(f"I waiting for Elevator at {self.curr_floor} floor")
+    def call_elevator(self):
+        print(f"I waiting for Elevator at {self.origin_floor} floor")
 
-    def choose_destination(self, races_queue):
+    def choose_destination(self):
         self.destination = random.randrange(LEVELS)
-        races_queue.append(self.destination)
         print(f"I, {self}, want to go to {self.destination} floor")
+        return self.destination
         
     def __repr__(self):
-        return f'Survivor on {self.curr_floor!r}'
+        return f'Survivor on {self.origin_floor!r}'
     

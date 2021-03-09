@@ -1,26 +1,31 @@
 # Лифт собственно
+import random
 
 class Elevator:
     """ 
     """
     MAX_PASSENGERS = 5
     
-    def __init__(self, level, passengers=0):
-        self.level = level
-        self.passengers = passengers
+    def __init__(self):
+        self.current_level = random.randrange(9)
+        self.passengers = []
         self.is_free = True
 
 
-    def add_passengers(n):
-        return self.passengers.append(n)
+    def add_passenger(survivor):
+        return self.passengers.append(survivor)
 
-    def find_nearest_call(self, current_level, pull):
+
+    def make_race(self, a_floor, b_floor):  #TODO
+        self.is_free = False
+        pass
+
+    def find_nearest_call(self, pull):
         """
         """
         distances = []
         for level in pull:
-            distances.append(abs(level - current_level))
-        #print(distances)
+            distances.append(abs(level - self.current_level))
         minimal_distance = min(distances)
         index_in_pull = distances.index(minimal_distance)
         destination = pull[index_in_pull]
